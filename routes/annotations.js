@@ -12,7 +12,7 @@ router.get('/', (req, res, next) => {
  * Create new annotation
  */
 router.post('/', (req, res, next) => {
-  res.status(201).json({message: 'Successfully created'});
+  res.status(201).json({message: 'Successfully created.'});
 });
 
 /**
