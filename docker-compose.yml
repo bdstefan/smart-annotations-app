@@ -4,6 +4,7 @@ services:
         build:
             context: .
             dockerfile: Dockerfile
+        container_name: "smart_api"
         volumes:
             - .:/usr/src/app
             - /usr/src/app/node_modules
@@ -23,7 +24,9 @@ services:
             - MONGODB_USER="admin"
             - MONGODB_PASS="secret"
         volumes:
-            - ./data/db:/data/db
+            - ./mongo-data:/data/db
         ports:
             - 27017:27017
         command: mongod --smallfiles --logpath=/dev/null # --quiet
+volumes:
+    mongo-data:

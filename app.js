@@ -4,11 +4,20 @@ const path         = require('path');
 const cookieParser = require('cookie-parser');
 const logger       = require('morgan');
 const basicAuth    = require('express-basic-auth');
+//const mongoose     = require('mongoose');
 
 var indexRouter       = require('./routes/index');
 var annotationsRouter = require('./routes/annotations');
 
 var app = express();
+
+//mongoose.connect('mongodb://localhost:27017/smart-annotationss', {useNewUrlParser: true});
+
+// try {
+//   mongoose.connect('mongodb://localhost:27017/smart-annotations', {useNewUrlParser: true});
+// } catch (error) {
+//   createError(error);
+// }
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
