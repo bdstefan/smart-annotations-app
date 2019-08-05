@@ -1,17 +1,18 @@
-version: '3'
-
+version: "3.3"
 services:
     api:
-        build: .
+        build:
+            context: .
+            dockerfile: Dockerfile
         volumes:
             - .:/usr/src/app
             - /usr/src/app/node_modules
-        ports:
-            - 3000:3000
+        depends_on:
+            - mongodb
         links:
             - mongodb
-        depends_on:
-            - mongodb  
+        ports:
+            - 3000:3000
         command: npm start
     mongodb:
         image: mongo:latest
@@ -25,4 +26,4 @@ services:
             - ./data/db:/data/db
         ports:
             - 27017:27017
-        command: mongod --smallfiles --logpath=/dev/null # --quiet  
+        command: mongod --smallfiles --logpath=/dev/null # --quiet
