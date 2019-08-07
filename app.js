@@ -4,7 +4,7 @@ const path         = require('path');
 const cookieParser = require('cookie-parser');
 const logger       = require('morgan');
 const basicAuth    = require('express-basic-auth');
-const mongoClient  = require('mongoodb').mongoClient;
+const mongoClient  = require('mongodb').mongoClient;
 
 var indexRouter       = require('./routes/index');
 var annotationsRouter = require('./routes/annotations');
