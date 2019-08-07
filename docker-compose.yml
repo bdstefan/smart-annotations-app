@@ -9,13 +9,13 @@ services:
             - .:/usr/src/app
             - /usr/src/app/node_modules
         depends_on:
-            - mongodb
+            - mongo
         links:
-            - mongodb
+            - mongo
         ports:
             - 3000:3000
         command: npm start
-    mongodb:
+    mongo:
         image: mongo:latest
         container_name: "mongodb"
         environment:
