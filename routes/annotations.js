@@ -1,10 +1,11 @@
 let express = require('express');
 let router  = express.Router();
-let createError  = require('http-errors');
-let mongooseClient = require('mongoose');
+let createError     = require('http-errors');
+let mongooseClient  = require('mongoose');
+const Annotation = require('../models/annotation');
 
 try {
-  let db = mongooseClient.connect('mongodb+srv://admin:secret@mongo:27017/smart_annotations', {useNewUrlParser: true});
+  let db = mongooseClient.connect('mongodb://admin:secret@0.0.0.0:27017/smart_annotations', {useNewUrlParser: true});
 } catch (error) {
   createError(error);
 }
@@ -20,8 +21,17 @@ router.get('/', (req, res, next) => {
 /**
  * Create new annotation
  */
-router.post('/', (req, res, next) => {
-  res.status(201).json({message: 'Successfully created.'});
+router.post('/', async (req, res, next) => {
+  const annotation = new Annotation({
+    comment: req.body.comment
+  });
+
+  try {
+    const annotationModel = await annotation.save();
+    res.status(201).json({message: annotationModel});
+  } catch (error) {
+    res.status(400).json({message: err.message});
+  }
 });
 
 /**
