@@ -9,7 +9,7 @@ let Annotation   = require('../models/annotation');
 router.get('/', async (req, res, next) => {
   try {
     const annotations = await Annotation.find();
-    return res.json(annotations);
+    res.json(annotations);
   } catch (error) {
     createError(error);
   }
@@ -34,8 +34,13 @@ router.post('/', async (req, res, next) => {
 /**
  * Get single annotation
  */
-router.get('/:id', (req, res, next) => {
-  res.json({message: 'Return annotation with id: ' + req.params.id});
+router.get('/:id', async (req, res, next) => {
+  try {
+    const annotation = await Annotation.findById(req.params.id);
+    res.json(annotation);
+  } catch (error) {
+    createError(error);
+  }
 });
 
 /**
