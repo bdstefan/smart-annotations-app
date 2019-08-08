@@ -15,4 +15,10 @@ let AnnotationSchema = new mongoose.Schema({
     }
 });
 
+AnnotationSchema.pre('save', function(next) {
+    this.increment();
+    this.modified = new Date();
+    return next();
+});
+
 module.exports = mongoose.model('Annotation', AnnotationSchema)
