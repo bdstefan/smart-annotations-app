@@ -25,7 +25,7 @@ router.post('/', async (req, res, next) => {
 
   try {
     const annotationModel = await annotation.save();
-    res.status(201).json({message: annotationModel});
+    res.status(201).json(annotationModel);
   } catch (error) {
     res.status(400).json({message: error.message});
   }

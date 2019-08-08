@@ -1,4 +1,4 @@
-let mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 let AnnotationSchema = new mongoose.Schema({
     comment: {
