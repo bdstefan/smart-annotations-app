@@ -34,43 +34,54 @@ router.post('/', async (req, res, next) => {
 /**
  * Get single annotation
  */
-router.get('/:id', async (req, res, next) => {
-  try {
-    const annotation = await Annotation.findById(req.params.id);
-    res.json(annotation);
-  } catch (error) {
-    createError(error);
-  }
+router.get('/:id', getAnnotation, async (req, res) => {
+  res.json(res.annotation);
 });
 
 /**
  * Update single annotation
  */
-router.patch('/:id', async (req, res, next) => {
+router.patch('/:id', getAnnotation, async (req, res) => {
   try {
-    let annotation = await Annotation.findById(req.params.id);
     if (req.body.comment != null) {
-      annotation.comment = req.body.comment;
+      res.annotation.comment = req.body.comment;
     }
-    annotation.save();
-    res.json(annotation);
+
+    res.annotation.save();
+    res.json(res.annotation);
   } catch (error) {
-    createError(error);
+    res.status(400).json({message: error.message});
   }
 });
 
 /**
  * Delete an annotation
  */
-router.delete('/:id', async(req, res, next) => {
+router.delete('/:id', getAnnotation, async (req, res) => {
   try {
-    let annotation = await Annotation.findById(req.params.id);
-    annotation.remove();
-
-    res.status(204)
+    await res.annotation.remove();
+    res.status(204).json();
   } catch (error) {
     createError(error);
   }
 });
+
+/**
+ * Middelware - get single annotation object
+ */
+async function getAnnotation(req, res, next) {
+  try {
+    annotation = await Annotation.findById(req.params.id)
+    if (annotation == null) {
+      return res.status(404).json({message: "Annotation not found"})
+    }
+  } catch (error) {
+    return createError(error)
+  }
+  
+  res.annotation = annotation
+  next()
+}
+
 
 module.exports = router;
