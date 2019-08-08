@@ -6,8 +6,13 @@ let Annotation   = require('../models/annotation');
 /**
  * Get all annotations
  */
-router.get('/', (req, res, next) => {
-  res.json([{name: 'Annotation 1'}, {name: 'Annotation 2'}]);
+router.get('/', async (req, res, next) => {
+  try {
+    const annotations = await Annotation.find();
+    return res.json(annotations);
+  } catch (error) {
+    createError(error);
+  }
 });
 
 /**
