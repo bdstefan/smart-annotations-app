@@ -6,17 +6,19 @@ const logger       = require('morgan');
 const basicAuth    = require('express-basic-auth');
 const mongoose     = require('mongoose');
 
-var indexRouter       = require('./routes/index');
-var annotationsRouter = require('./routes/annotations');
+let indexRouter       = require('./routes/index');
+let annotationsRouter = require('./routes/annotations');
 
-var app = express();
+let app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 app.use(basicAuth({
-  users: { 'admin': 'supersecret' } //Authorization Basic YWRtaW46c3VwZXJzZWNyZXQ=
+  users: { 'admin': 'supersecret' }, //Authorization Basic YWRtaW46c3VwZXJzZWNyZXQ=
+  challenge: true,
+  realm: 'HaK12trL9P10hue',
 }));
 
 app.use(logger('dev'));

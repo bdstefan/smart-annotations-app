@@ -1,7 +1,7 @@
-let express      = require('express');
-let router       = express.Router();
-let createError  = require('http-errors');
-let Annotation   = require('../models/annotation');
+const express     = require('express');
+const router      = express.Router();
+const createError = require('http-errors');
+const Annotation  = require('../models/annotation');
 
 /**
  * Get all annotations
@@ -82,6 +82,5 @@ async function getAnnotation(req, res, next) {
   res.annotation = annotation
   next()
 }
-
 
 module.exports = router;
