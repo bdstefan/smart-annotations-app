@@ -60,10 +60,17 @@ router.patch('/:id', async (req, res, next) => {
 });
 
 /**
- * Soft delete an annotation
+ * Delete an annotation
  */
-router.delete('/:id', (req, res, next) => {
-  res.json({message: 'Deleted annotation with id: ' + req.params.id});
+router.delete('/:id', async(req, res, next) => {
+  try {
+    let annotation = await Annotation.findById(req.params.id);
+    annotation.remove();
+
+    res.status(204)
+  } catch (error) {
+    createError(error);
+  }
 });
 
 module.exports = router;
