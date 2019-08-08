@@ -1,15 +1,7 @@
-let express = require('express');
-let router  = express.Router();
-let createError     = require('http-errors');
-let mongooseClient  = require('mongoose');
-const Annotation = require('../models/annotation');
-
-try {
-  let db = mongooseClient.connect('mongodb://admin:secret@0.0.0.0:27017/smart_annotations', {useNewUrlParser: true});
-} catch (error) {
-  createError(error);
-}
-
+let express      = require('express');
+let router       = express.Router();
+let createError  = require('http-errors');
+let Annotation   = require('../models/annotation');
 
 /**
  * Get all annotations
