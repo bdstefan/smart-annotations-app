@@ -46,8 +46,17 @@ router.get('/:id', async (req, res, next) => {
 /**
  * Update single annotation
  */
-router.put('/:id', (req, res, next) => {
-  res.json({message: 'Updated annotation with id: ' + req.params.id});
+router.patch('/:id', async (req, res, next) => {
+  try {
+    let annotation = await Annotation.findById(req.params.id);
+    if (req.body.comment != null) {
+      annotation.comment = req.body.comment;
+    }
+    annotation.save();
+    res.json(annotation);
+  } catch (error) {
+    createError(error);
+  }
 });
 
 /**
