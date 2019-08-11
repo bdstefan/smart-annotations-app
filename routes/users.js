@@ -20,6 +20,10 @@ router.get('/', async (req, res, next) => {
  * Create new user
  */
 router.post('/', async (req, res, next) => {
+  if (req.body.password.length < 6) {
+    res.status(400).json({message: 'Password should have at least 6 chars.'});
+  }
+
   const user = new User({
     name: req.body.name,
     email: req.body.email,
