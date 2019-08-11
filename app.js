@@ -8,6 +8,7 @@ const mongoose     = require('mongoose');
 
 let indexRouter       = require('./routes/index');
 let annotationsRouter = require('./routes/annotations');
+let userRouter        = require('./routes/users');
 
 let app = express();
 
@@ -29,6 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/annotations', annotationsRouter);
+app.use('/users', userRouter);
 
 try {
   mongoose.connect('mongodb://mongo:27017/smart_annotations', {useNewUrlParser: true});

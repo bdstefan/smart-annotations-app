@@ -30,6 +30,6 @@ let UserSchema = mongoose.Schema({
     }
 });
 
-userSchema.plugin(uniqueValidator, { message: 'Error, expected {PATH} to be unique.' });
+UserSchema.plugin(uniqueValidator, { message: 'Error, expected {PATH} to be unique.' });
 
 module.exports = mongoose.model('User', UserSchema)
