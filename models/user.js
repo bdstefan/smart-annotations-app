@@ -1,5 +1,7 @@
-const mongoose = require('mongoose');
+const mongoose        = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
+
+const roles = ['admin', 'user'];
 
 let UserSchema = mongoose.Schema({
     name: {
@@ -22,6 +24,11 @@ let UserSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    role: {
+        type: String,
+        require: true,
+        default: 'user'
+    },
     status: {
         type: Boolean,
         default: false
@@ -37,5 +44,21 @@ let UserSchema = mongoose.Schema({
 });
 
 UserSchema.plugin(uniqueValidator, { message: 'Error, expected {PATH} to be unique.' });
+
+UserSchema.pre('save', function(next) {
+    this.increment();
+    this.modified = new Date();
+
+    if (this.role == null) {
+        this.role = 'user';
+    }
+
+    return next();
+});
+
+UserSchema.methods.hasRole = (requiredRole) => {
+    return this.role == requiredRole;
+};
+
 
 module.exports = mongoose.model('User', UserSchema)
