@@ -54,6 +54,13 @@ router.patch('/:id', getUser, async (req, res) => {
       res.user.name = req.body.name;
     }
 
+    if (req.body.password != null) {
+      if (req.body.password.length < 6) {
+        res.status(400).json({message: 'Password should have at least 6 chars.'});
+      }
+      req.user.password = crypto.createHash('sha256').update(req.body.password).digest('hex');
+    }
+
     res.user.save();
     res.json(res.user);
   } catch (error) {
