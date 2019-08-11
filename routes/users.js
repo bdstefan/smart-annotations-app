@@ -1,7 +1,8 @@
 const express     = require('express');
 const router      = express.Router();
 const createError = require('http-errors');
-const User  = require('../models/user');
+const crypto      = require('crypto');
+const User        = require('../models/user');
 
 /**
  * Get all users
@@ -21,7 +22,8 @@ router.get('/', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
   const user = new User({
     name: req.body.name,
-    email: req.body.email
+    email: req.body.email,
+    password: crypto.createHash('sha256').update(req.body.password).digest('hex')
   });
 
   try {
