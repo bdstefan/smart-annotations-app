@@ -9,7 +9,8 @@ let UserSchema = mongoose.Schema({
     email: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        uniqueCaseInsensitive: true
     },
     password: {
         type: String,
@@ -29,6 +30,6 @@ let UserSchema = mongoose.Schema({
     }
 });
 
-userSchema.plugin(uniqueValidator);
+userSchema.plugin(uniqueValidator, { message: 'Error, expected {PATH} to be unique.' });
 
 module.exports = mongoose.model('User', UserSchema)
