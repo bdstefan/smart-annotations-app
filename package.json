@@ -17,7 +17,7 @@
     "mongoose-unique-validator": "^2.0.3",
     "morgan": "~1.9.0",
     "nodemon": "^1.19.4",
-    "pug": "^2.0.4",
+    "pug": "^3.0.1",
     "start": "^5.1.0"
   }
 }
